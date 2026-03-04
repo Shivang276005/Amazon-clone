@@ -55,24 +55,29 @@ products.forEach((product)=>{
         </div>
   `;
 });
-function updateCartQuantity(productId){
+function updateCartQuantityDisplay(){
   let cartQuantity=0;
-    cart.forEach((cartItem)=>{
-      cartQuantity += cartItem.quantity;
-    });
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-    const msgElement = document.querySelector(`.js-added-to-cart-${productId}`);
-    msgElement.classList.add('display-added-msg');
-    setTimeout(() => {
-      msgElement.classList.remove('display-added-msg');
-    }, 2000);
+  cart.forEach((cartItem)=>{
+    cartQuantity += cartItem.quantity;
+  });
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 }
+
+function updateCartQuantity(productId){
+  updateCartQuantityDisplay();
+  const msgElement = document.querySelector(`.js-added-to-cart-${productId}`);
+  msgElement.classList.add('display-added-msg');
+  setTimeout(() => {
+    msgElement.classList.remove('display-added-msg');
+  }, 2000);
+}
+// Load cart quantity on page load
+updateCartQuantityDisplay();
 
 document.querySelector('.js-products-grid').innerHTML = productHTML;
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click',()=>{
     const {productId}=button.dataset;
-
     addToCart(productId);
     updateCartQuantity(productId);
   });
