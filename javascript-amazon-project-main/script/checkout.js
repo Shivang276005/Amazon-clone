@@ -31,9 +31,11 @@ cart.forEach((cartItem) => {
           <span>
             Quantity: <span class="quantity-label">${cartItem.quantity}</span>
           </span>
-          <span class="update-quantity-link link-primary">
+          <span class="update-quantity-link link-primary" data-product-id="${matchingProduct.id}">
             Update
           </span>
+          <input class="quantity-input" id="input-quantity-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
+          <span class="save-quantity-link link-primary" data-product-id="${matchingProduct.id}">Save</span>
           <span class="delete-quantity-link link-primary" data-product-id="${matchingProduct.id}">
             Delete
           </span>
@@ -104,5 +106,30 @@ function refreshHeaderCount() {
   document.getElementById('cartItemCount').innerHTML = 
     `Checkout (<a class="return-to-home-link" href="amazon.html">${cartQuantity} items</a>)`;
 }
-
 refreshHeaderCount();
+document.querySelectorAll('.update-quantity-link').forEach(link => {
+  link.addEventListener('click', ()=>{
+    const productId = link.dataset.productId;
+    document.getElementById(`cart-item-${productId}`).classList.add('is-editing-quantity');
+  });
+});
+document.querySelectorAll('.save-quantity-link').forEach(link =>{
+  link.addEventListener('click',()=>{
+    const productId = link.dataset.productId;
+    const inputElement = document.getElementById(`input-quantity-${productId}`);
+    const newQuantity = parseInt(inputElement.value);
+    if (newQuantity > 0) {
+      // Find and update the cart item quantity
+      const cartItem = cart.find(item => item.productId === productId);
+      if (cartItem) {
+        cartItem.quantity = newQuantity;
+        // Update the quantity label in the DOM
+        document.querySelector(`#cart-item-${productId} .quantity-label`).textContent = newQuantity;
+      }
+      // Refresh header count
+      refreshHeaderCount();
+    }
+    
+    document.getElementById(`cart-item-${productId}`).classList.remove('is-editing-quantity');
+  });
+});
