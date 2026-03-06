@@ -1,4 +1,4 @@
-import {cart,addToCart} from '../data/cart.js';
+import {cart, addToCart, getCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
 import { formatMoney } from './utils/money.js';
 formatMoney
@@ -55,16 +55,16 @@ products.forEach((product)=>{
         </div>
   `;
 });
-function updateCartQuantityDisplay(){
-  let cartQuantity=0;
-  cart.forEach((cartItem)=>{
-    cartQuantity += cartItem.quantity;
-  });
+export let cartQuantity = 0;
+
+function updateCartQuantity(){
+  // recalc from scratch so repeated calls don't accumulate
+  cartQuantity = getCartQuantity();
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 }
 
-function updateCartQuantity(productId){
-  updateCartQuantityDisplay();
+function addedToCartMsg(productId){
+  updateCartQuantity();
   const msgElement = document.querySelector(`.js-added-to-cart-${productId}`);
   msgElement.classList.add('display-added-msg');
   setTimeout(() => {
@@ -72,13 +72,13 @@ function updateCartQuantity(productId){
   }, 2000);
 }
 // Load cart quantity on page load
-updateCartQuantityDisplay();
+updateCartQuantity();
 
 document.querySelector('.js-products-grid').innerHTML = productHTML;
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click',()=>{
     const {productId}=button.dataset;
     addToCart(productId);
-    updateCartQuantity(productId);
+    addedToCartMsg(productId);
   });
 });

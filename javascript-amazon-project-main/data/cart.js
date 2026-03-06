@@ -12,6 +12,15 @@ function renderCartItems(){
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+// helper to compute total number of items in the cart
+export function getCartQuantity() {
+  let quantity = 0;
+  cart.forEach((ci) => {
+    quantity += ci.quantity;
+  });
+  return quantity;
+}
+
 export function addToCart(productId){
   let matchingItem;
   cart.forEach((cartItem)=>{

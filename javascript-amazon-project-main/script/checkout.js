@@ -1,4 +1,4 @@
-import { cart,removeCartItem } from "../data/cart.js";
+import { cart, removeCartItem, getCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatMoney } from "./utils/money.js";
 let cartSummaryHTML = '';
@@ -94,5 +94,15 @@ document.querySelectorAll('.delete-quantity-link').forEach((link) => {
     const productId = link.dataset.productId;
     removeCartItem(productId);
     document.getElementById(`cart-item-${productId}`).remove();
+    // update the quantity display in header after removal
+    refreshHeaderCount();
   });
 });
+// helper to refresh the header count on this page
+function refreshHeaderCount() {
+  const cartQuantity = getCartQuantity();
+  document.getElementById('cartItemCount').innerHTML = 
+    `Checkout (<a class="return-to-home-link" href="amazon.html">${cartQuantity} items</a>)`;
+}
+
+refreshHeaderCount();
