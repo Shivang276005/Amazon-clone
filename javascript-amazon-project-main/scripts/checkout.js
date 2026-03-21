@@ -1,4 +1,4 @@
-import {cart, removeFromCart} from '../data/cart.js';
+import {calculateCartQuantity, cart, removeFromCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -37,9 +37,11 @@ cart.forEach((cartItem) => {
             <span>
               Quantity: <span class="quantity-label">${cartItem.quantity}</span>
             </span>
-            <span class="update-quantity-link link-primary">
+            <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
               Update
             </span>
+            <input type="text" class="quantity-input">
+            <span class="save-quantity-link">Save</span>
             <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
               Delete
             </span>
@@ -103,10 +105,32 @@ document.querySelectorAll('.js-delete-link')
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
       removeFromCart(productId);
-
+      updateCartQuantity();
       const container = document.querySelector(
         `.js-cart-item-container-${productId}`
       );
       container.remove();
+    });
+  });
+updateCartQuantity();
+
+function updateCartQuantity(){
+  let cartQuantity = calculateCartQuantity();
+  document.getElementById('js-total-items')
+    .innerHTML = `${cartQuantity} Items`;
+}
+document.querySelectorAll('.js-update-link')
+  .forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+      document.querySelector('.product-quantity').classList.add('is-editing-quantity');
+    });
+  });
+document.querySelectorAll('.save-quantity-link')
+  .forEach((link) => {
+    link.addEventListener('click', () => {
+      // const productId = link.dataset.productId;
+      document.querySelector('.product-quantity').classList.remove('is-editing-quantity');
+      let updatedQuantity = Number(document.querySelector('.quantity-input').value);
     });
   });
