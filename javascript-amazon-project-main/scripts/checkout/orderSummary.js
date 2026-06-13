@@ -3,7 +3,8 @@ import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
-import {renderPaymentSummary} from './paymentSummary.js';
+import {cartQuantity, renderPaymentSummary} from './paymentSummary.js';
+import { renderCheckoutHeader } from './checkoutHeader.js';
 
 export function renderOrderSummary() {
   let cartSummaryHTML = '';
@@ -67,6 +68,7 @@ export function renderOrderSummary() {
       </div>
     `;
   });
+  renderCheckoutHeader(cartQuantity);
 
   function deliveryOptionsHTML(matchingProduct, cartItem) {
     let html = '';
@@ -118,14 +120,10 @@ export function renderOrderSummary() {
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
         removeFromCart(productId);
-
-        const container = document.querySelector(
-          `.js-cart-item-container-${productId}`
-        );
-        container.remove();
-
+        renderOrderSummary();
         renderPaymentSummary();
       });
+      renderCheckoutHeader(cartQuantity);
     });
 
   document.querySelectorAll('.js-delivery-option')
@@ -137,4 +135,14 @@ export function renderOrderSummary() {
         renderPaymentSummary();
       });
     });
+}
+let today = dayjs();
+let fiveday = today.format('dddd');
+isWeekend(fiveday);
+function isWeekend(date){
+  if (date === 'Saturday' || date === 'Sunday') {
+    console.log('Weekend');
+  } else {
+    console.log(date);
+  }
 }

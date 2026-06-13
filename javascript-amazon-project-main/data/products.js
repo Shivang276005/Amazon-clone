@@ -1,15 +1,4 @@
-export function getProduct(productId) {
-  let matchingProduct;
-
-  products.forEach((product) => {
-    if (product.id === productId) {
-      matchingProduct = product;
-    }
-  });
-
-  return matchingProduct;
-}
-export const products = [
+const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -667,23 +656,5 @@ export const products = [
       "apparel",
       "mens"
     ]
-  },{
-    id: "id1",
-    image: "images/products/backpack.jpg",
-    name: "Backpack",
-    rating: {
-      stars: 4.0,
-      count: 398
-    },
-    priceCents: 4500
-  },{
-    id: "id2",
-    image: "images/products/umbrella.jpg",
-    name: "Umbrella",
-    rating: {
-      stars: 4.5,
-      count: 3945
-    },
-    priceCents: 500
   }
 ];
