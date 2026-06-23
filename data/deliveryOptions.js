@@ -1,4 +1,5 @@
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
+import { isWeekend } from '../scripts/utils/isWeekend.js';
 
 export const deliveryOptions = [{
   id: '1',
@@ -27,7 +28,21 @@ export function getDeliveryOption(deliveryOptionId){
 
 export function calculateDeliveryDate(deliveryOption){
   const today = dayjs();
-  const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+  // when the date between the addition is weekend -> skip that addition to the delivery date => Implement for selecting the next working day.
+  let daysToBeDelivered = deliveryOption.deliveryDays;
+  let addDay = 1;
+  let deliveryDate;
+  while(daysToBeDelivered != 0){
+    let checkDate = today.add(addDay, 'days');
+    if (isWeekend(checkDate) == false) {
+      deliveryDate = checkDate;
+    } else {
+      daysToBeDelivered++;
+    }
+    addDay++;
+    daysToBeDelivered--;
+  }
+  // let deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
   const dateString = deliveryDate.format('dddd, MMMM D' );
   return dateString;
 }
