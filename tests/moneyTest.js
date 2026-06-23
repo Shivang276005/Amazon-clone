@@ -1,9 +1,25 @@
-import { money } from "../scripts/utils/money.js";
+import { formatCurrency } from "../scripts/utils/money.js";
 
 console.log('Test Suite : formatCurrency');
-console.log('Convert cents to dollar');
 
-if (money(2095) === '20.95') {
+//basic test case
+console.log('convert cents to dollars')
+if (formatCurrency(2095) === '20.95') {
+  console.log('passed');
+}else{
+  console.log('failed');
+}
+
+//edge case
+console.log('works with zero')
+if(formatCurrency(0) == 0.00){
+  console.log('passed');
+}else{
+  console.log('failed');
+}
+
+console.log('round up to nearest cent')
+if(formatCurrency(2000.5) == 20.01){
   console.log('passed');
 }else{
   console.log('failed');
