@@ -1,16 +1,17 @@
 class Cart {
   cartItems;
-  localStorageKey;
+  // In JavaScript to set a Property or Method -> PRIVATE ,we use '#' as a access modifier(accessible inside the class)
+  #localStorageKey;
 
   constructor(localStorageKey){
-    this.localStorageKey = localStorageKey;
+    this.#localStorageKey = localStorageKey;
 
-    this.loadFromStorage();
+    this.#loadFromStorage();
 
   }
   
-  loadFromStorage(){
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage(){
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
     if(!this.cartItems){
       this.cartItems = [{
@@ -26,7 +27,7 @@ class Cart {
   }
 
   saveToStorage(){
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   addToCart(productId, selectedQuantity){
@@ -94,8 +95,8 @@ class Cart {
   }
 };
 
-let cart = new Cart('cart-oop');
-let businessCart = new Cart('cart-business');
+// let cart = new Cart('cart-oop');
+// let businessCart = new Cart('cart-business');
 
-console.log(cart);
-console.log(businessCart);
+// console.log(cart);
+// console.log(businessCart);
