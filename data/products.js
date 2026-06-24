@@ -89,7 +89,24 @@ export function loadProductsFetch(){
 }
 loadProductsFetch();
 
-// export let products = [];
+export function loadProducts(fun) {
+  fetch('https://supersimplebackend.dev/products')
+    .then((response) => response.json())
+    .then((data) => {
+      products = data.map((productDetails) => {
+        if (productDetails.type === 'clothing') {
+          return new Clothing(productDetails);
+        } else if (productDetails.type === 'appliance') {
+          return new Appliance(productDetails);
+        }
+        return new Product(productDetails);
+      });
+      fun();
+    });
+}
+
+/*
+export let products = [];
 export function loadProducts(fun){
   const xhr = new XMLHttpRequest();
   xhr.addEventListener('load',()=>{
@@ -109,7 +126,7 @@ export function loadProducts(fun){
   xhr.send();
 }
 loadProducts();
-
+*/
 
 /*
 export const products = [
