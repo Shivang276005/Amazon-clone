@@ -89,8 +89,7 @@ export function loadProductsFetch(){
 }
 loadProductsFetch();
 
-/*
-export let products = [];
+// export let products = [];
 export function loadProducts(fun){
   const xhr = new XMLHttpRequest();
   xhr.addEventListener('load',()=>{
@@ -102,15 +101,15 @@ export function loadProducts(fun){
       }
       return new Product(productDetails);
     });
-    fun();
-    console.log('Products loaded succesfully');
+    // fun();
+    // console.log('Products loaded succesfully');
     //its taking time to load the content (product grid) => this means is it the same point where websites use skeleton loading UI...?
   });
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.send();
 }
 loadProducts();
-*/
+
 
 /*
 export const products = [
