@@ -78,8 +78,8 @@ export function loadProducts(fun){
       }
       return new Product(productDetails);
     });
-    console.log('Products loaded succesfully');
     fun();
+    console.log('Products loaded succesfully');
     //its taking time to load the content (product grid) => this means is it the same point where websites use skeleton loading UI...?
   });
   xhr.open('GET','https://supersimplebackend.dev/products');
