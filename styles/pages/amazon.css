@@ -157,3 +157,11 @@
   padding: 8px;
   border-radius: 50px;
 }
+
+.extraInfoLink{
+  display: none;
+}
+.product-container:hover .extraInfoLink{
+  display: initial;
+  transition: all 0.35 ease-in-out;
+}

@@ -1,4 +1,4 @@
-class Cart {
+export class Cart {
   cartItems;
   // In JavaScript to set a Property or Method -> PRIVATE ,we use '#' as a access modifier(accessible inside the class)
   #localStorageKey;
