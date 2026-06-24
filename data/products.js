@@ -101,7 +101,7 @@ export function loadProducts(fun){
       }
       return new Product(productDetails);
     });
-    // fun();
+    fun();
     // console.log('Products loaded succesfully');
     //its taking time to load the content (product grid) => this means is it the same point where websites use skeleton loading UI...?
   });
