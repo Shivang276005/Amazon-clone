@@ -29,6 +29,7 @@ class Car{
       this.isTrunkOpen = true;
     }else{
       console.log("You cannot open Trunk while the car is moving");
+      //Okay so this feel same as to Hack and Overwrite some functioning like in movies : )
     }
   }
   closeTrunk(){
