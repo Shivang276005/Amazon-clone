@@ -147,3 +147,20 @@
   width: 26px;
   text-align: center;
 }
+.order-quantity {
+  color: rgb(83, 55, 18);
+  font-size: 18px;
+  font-weight: 900;
+
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  
+  width: 26px;
+  text-align: center;
+}
+
+.delivery-icon{
+  width : 50px;
+  border-radius: 5px;
+}

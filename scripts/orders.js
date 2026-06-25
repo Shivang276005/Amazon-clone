@@ -3,6 +3,7 @@ import { dateFormat } from "./utils/formatDate.js";
 import { formatCurrency } from './utils/money.js';
 import { loadProducts, getProduct } from "../data/products.js"; 
 
+let totalOrders = 0;
 
 async function renderOrders(){
   await loadProducts();
@@ -37,14 +38,17 @@ async function renderOrders(){
       </div>
       
     `
+
+    totalOrders++;
+    
   });
-
+  
   document.querySelector('.js-orders-grid').innerHTML = orderContainerHTML;
-
+  
+  console.log(totalOrders)
 }
 
 renderOrders();
-
 
 
 function renderOrderProducts(products){
