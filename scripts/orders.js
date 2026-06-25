@@ -44,8 +44,9 @@ async function renderOrders(){
   });
   
   document.querySelector('.js-orders-grid').innerHTML = orderContainerHTML;
-  
-  console.log(totalOrders)
+
+  document.querySelector('.js-order-quantity').innerHTML = totalOrders;
+
 }
 
 renderOrders();
