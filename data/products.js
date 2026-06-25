@@ -89,20 +89,23 @@ export function loadProductsFetch(){
 }
 loadProductsFetch();
 
-export function loadProducts(fun) {
-  fetch('https://supersimplebackend.dev/products')
-    .then((response) => response.json())
-    .then((data) => {
-      products = data.map((productDetails) => {
-        if (productDetails.type === 'clothing') {
-          return new Clothing(productDetails);
-        } else if (productDetails.type === 'appliance') {
-          return new Appliance(productDetails);
-        }
-        return new Product(productDetails);
-      });
-      fun();
+export async function loadProducts() {
+  try {
+    const response = await fetch('https://supersimplebackend.dev/products');
+    const data = await response.json();
+    
+    products = data.map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      } 
+      if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
     });
+  } catch (error) {
+    console.error('Error loading products:', error);
+  }
 }
 
 /*

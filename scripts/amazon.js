@@ -3,6 +3,14 @@ import { products, loadProducts } from "../data/products.js";
 
 loadProducts(renderProductGrid);
 
+async function initializePage() {
+  await loadProducts();
+  renderProductGrid();
+}
+
+initializePage();
+
+
 function renderProductGrid(){
   let productsHTML = '';
   products.forEach((product)=>{
