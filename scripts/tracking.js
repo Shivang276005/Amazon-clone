@@ -1,6 +1,8 @@
 import { orders } from "../data/orders.js";
 import { getProduct, loadProducts } from "../data/products.js";
 import { deliveryFormat } from "./utils/formatDate.js";
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
+
 
 const url = new URL(window.location.href);
 const orderId = url.searchParams.get('oid');
@@ -45,13 +47,13 @@ function renderTracking(){
     <img class="product-image" src="${product.image}">
 
     <div class="progress-labels-container">
-      <div class="progress-label">
+      <div class="progress-label" id="preparing">
         Preparing
       </div>
-      <div class="progress-label current-status">
+      <div class="progress-label" id="shipped">
         Shipped
       </div>
-      <div class="progress-label">
+      <div class="progress-label" id="delivered">
         Delivered
       </div>
     </div>
@@ -61,5 +63,27 @@ function renderTracking(){
     </div>
   `
   document.querySelector('.order-tracking').innerHTML = trackingHTML;
+
+  let deliveryTime = dayjs(delivery.estimatedDeliveryTime);
+  let orderTime = dayjs(orderToTrack.orderTime);
+  
+  const currentTime = dayjs();
+  const numerator = currentTime.diff(orderTime, 'second');
+  const denominator = deliveryTime.diff(orderTime, 'second');
+  // ((currentTime - orderTime)/(deliveryTime - orderTime))*100
+  const percentage = Math.ceil((numerator/denominator)*1000);
+
+  document.querySelector('.progress-bar').style.setProperty('--width',`${percentage}%`);
+
+
+  let status = 'preparing';
+  if (percentage >= 100) {
+    status = 'delivered';
+  } else if (percentage >= 50) {
+    status = 'shipped';
+  }
+  document.getElementById(`${status}`).classList.add('current-status')
+
+
 }
 renderTracking();

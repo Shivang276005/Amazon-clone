@@ -44,7 +44,8 @@
 }
 
 .current-status {
-  color: rgb(6, 125, 98);
+  color: rgb(27, 196, 156);
+  text-decoration: line-through;
 }
 
 @media (max-width: 575px) {
@@ -74,8 +75,36 @@
 }
 
 .progress-bar {
+  position: relative;
+  overflow: hidden;
   height: 100%;
-  background-color: green;
-  border-radius: 50px;
-  width: 50%;
+  background: green;
+  width: var(--width, 0%);
+}
+
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.6),
+    transparent
+  );
+
+  animation: shine 1.4s infinite linear;
+}
+
+@keyframes shine {
+  from {
+    left: -40%;
+  }
+
+  to {
+    left: 120%;
+  }
 }
