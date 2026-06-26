@@ -36,7 +36,7 @@ async function renderOrders(){
       <!-- products for that specific header -->
 
       <div class="order-details-grid">
-        ${renderOrderProducts(order.products)}
+        ${renderOrderProducts(order.products, order.id)}
       </div>
       
     `
@@ -54,12 +54,13 @@ async function renderOrders(){
 renderOrders();
 
 
-function renderOrderProducts(products){
+function renderOrderProducts(products, orderId){
   let productHTML = '';
 
   products.forEach((product)=>{
     
-    const matchingProduct = getProduct(product.productId);
+    const productId = product.productId;
+    const matchingProduct = getProduct(productId);
 
     productHTML += `   
       <div class="product-image-container">
@@ -76,15 +77,15 @@ function renderOrderProducts(products){
         <div class="product-quantity">
           Quantity: ${product.quantity}
         </div>
-        <button class="buy-again-button button-primary js-buy-again" data-product-id = "${product.productId}" data-prod-quantity = "${product.quantity}">
+        <button class="buy-again-button button-primary js-buy-again" data-product-id = "${productId}" data-prod-quantity = "${product.quantity}">
           <img class="buy-again-icon" src="images/icons/buy-again.png">
           <span class="buy-again-message ">Buy it again</span>
         </button>
       </div>
 
       <div class="product-actions">
-        <a href="tracking.html">
-          <button class="track-package-button button-secondary">
+        <a href="tracking.html?oid=${orderId}&pid=${productId}">
+          <button class="track-package-button button-secondary js-tracking-btn">
             Track package
           </button>
         </a>
