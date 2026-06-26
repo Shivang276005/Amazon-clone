@@ -148,19 +148,26 @@
   text-align: center;
 }
 .order-quantity {
-  color: rgb(83, 55, 18);
-  font-size: 18px;
-  font-weight: 900;
+  font-size: 15px;
+  font-weight: bolder;
 
   position: absolute;
-  top: 5px;
-  left: 10px;
+  top: 7px;
+  left: 20px;
   
-  width: 26px;
+  width: 15px;
   text-align: center;
+  background-color: rgb(180, 95, 10);
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 2px 5px 0px 0px;
+  display: inline-block;
+  text-align: center;
+
 }
 
 .delivery-icon{
-  width : 50px;
+  height: 40px;
+  width : 80px;
   border-radius: 5px;
 }
