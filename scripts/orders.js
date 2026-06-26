@@ -1,7 +1,9 @@
 import { orders } from "../data/orders.js";
 import { dateFormat } from "./utils/formatDate.js";
 import { formatCurrency } from './utils/money.js';
-import { loadProducts, getProduct } from "../data/products.js"; 
+import { loadProducts, getProduct } from "../data/products.js";
+import { cart } from "../data/cart-class.js";
+
 
 let totalOrders = 0;
 
@@ -74,9 +76,9 @@ function renderOrderProducts(products){
         <div class="product-quantity">
           Quantity: ${product.quantity}
         </div>
-        <button class="buy-again-button button-primary">
+        <button class="buy-again-button button-primary js-buy-again" data-product-id = "${product.productId}" data-prod-quantity = "${product.quantity}">
           <img class="buy-again-icon" src="images/icons/buy-again.png">
-          <span class="buy-again-message">Buy it again</span>
+          <span class="buy-again-message ">Buy it again</span>
         </button>
       </div>
 
@@ -93,3 +95,16 @@ function renderOrderProducts(products){
   return productHTML;
   
 }
+
+document.querySelector('.js-orders-grid').addEventListener('click', (event) => {
+  const button = event.target.closest('.js-buy-again');
+
+  if (!button) return;
+
+  const productId = button.dataset.productId;
+  const prodQuantity = Number(button.dataset.prodQuantity);
+
+  cart.addToCart(productId,prodQuantity)
+  cart.saveToStorage();
+
+});
