@@ -87,3 +87,21 @@ function renderTracking(){
 
 }
 renderTracking();
+
+document.querySelector('.search-button').addEventListener('click',()=>{
+  const searchValue = document.querySelector('.search-bar').value;
+  console.log(searchValue);
+  const ref = document.getElementById('search-value');
+  ref.setAttribute('href',`index.html?search=${searchValue}`);
+  
+});
+
+document.querySelector('.search-bar').addEventListener('keydown', (event)=>{
+  if(event.key === 'Enter'){
+    const searchValue = document.querySelector('.search-bar').value;
+    console.log(searchValue)
+    const ref = document.getElementById('search-value');
+    ref.setAttribute('href',`index.html?search=${searchValue}`);
+    window.location.href = ref;
+  }
+})

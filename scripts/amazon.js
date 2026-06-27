@@ -97,3 +97,7 @@ function renderProductGrid(){
     });
   });
 }
+
+const url = new URL(window.location.href);
+const searchValue = url.searchParams.get('search');
+console.log(searchValue);
