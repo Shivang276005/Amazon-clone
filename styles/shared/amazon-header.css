@@ -79,6 +79,9 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+.search-bar:focus{
+  outline: none;
+}
 
 .search-button {
   background-color: rgb(254, 189, 105);

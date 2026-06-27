@@ -1,19 +1,54 @@
 import { cart } from "../data/cart-class.js";
 import { products, loadProducts } from "../data/products.js";
 
-loadProducts(renderProductGrid);
+
+function searchProducts(){
+  let searchValue = document.querySelector('.search-bar').value.trim().toLowerCase();
+  renderProductGrid(searchValue);
+}
+
+document.querySelector('.search-button').addEventListener('click',()=> searchProducts());
+document.querySelector('.search-bar').addEventListener('keydown', (event)=>{
+  if(event.key === 'Enter') searchProducts();
+});
+
 
 async function initializePage() {
   await loadProducts();
-  renderProductGrid();
+
+  const url = new URL(window.location.href);
+  const searchInput = url.searchParams.get('search');
+  renderProductGrid(searchInput);
 }
 
 initializePage();
 
 
-function renderProductGrid(){
+function renderProductGrid(searchValue){
+  
+  let productContainer =[];
+  if (!searchValue) {
+    productContainer = products;
+  } else {
+    products.forEach((product)=>{
+      if (searchValue) {
+        if ((product.name.trim().toLowerCase().includes(searchValue)) || (product.keywords.some(keyword => keyword.toLowerCase().includes(searchValue)))) {
+          productContainer.push(product)
+        }
+      }    
+    })
+  }
+  /*Earlier approach i was thinking:
+  const filterProd = products.filter(product => product.name.trim().toLowerCase().includes(searchValue))
+
+  const filter2 = products.filter((product)=>{
+    console.log(product.keywords.includes(searchValue))
+  })
+  console.log(filter2)
+  */
+
   let productsHTML = '';
-  products.forEach((product)=>{
+  productContainer.forEach((product)=>{
     productsHTML += `
     <div class="product-container">
     <div class="product-image-container">
@@ -97,7 +132,3 @@ function renderProductGrid(){
     });
   });
 }
-
-const url = new URL(window.location.href);
-const searchValue = url.searchParams.get('search');
-console.log(searchValue);
