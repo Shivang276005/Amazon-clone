@@ -59,6 +59,12 @@
     flex-direction: column;
     margin-bottom: 5px;
   }
+  .icon{
+    display: none;
+  }
+  .searchText{
+    font-size: 14px;
+  }
 
   .progress-label {
     margin-bottom: 3px;
@@ -107,4 +113,45 @@
   to {
     left: 120%;
   }
+}
+
+
+.search-container{
+ position:relative;
+}
+
+.suggestions{
+  position:absolute;
+  top: 52px;
+  left:0;
+  width:70%;
+  background:rgb(220, 190, 40);
+  border-radius:18px;
+  overflow:hidden;
+  display:none;
+}
+
+.suggestions.show{
+  display:block;
+}
+
+.suggestion{
+  height:48px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:0 18px;
+  cursor:pointer;
+  color:black;
+  transition:background .15s;
+}
+
+.suggestion:hover,
+.suggestion.active{
+  background:rgb(248, 218, 84);
+}
+
+.icon{
+  font-size:18px;
+  opacity:.8;
 }

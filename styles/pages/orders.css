@@ -111,6 +111,12 @@
   .order-details-grid {
     grid-template-columns: 1fr;
   }
+  .icon{
+    display: none;
+  }
+  .searchText{
+    font-size: 14px;
+  }
 }
 
 .product-image-container {
@@ -217,4 +223,44 @@
     width: 100%;
     padding: 12px;
   }
+}
+
+.search-container{
+ position:relative;
+}
+
+.suggestions{
+  position:absolute;
+  top: 52px;
+  left:0;
+  width:70%;
+  background:rgb(220, 190, 40);
+  border-radius:18px;
+  overflow:hidden;
+  display:none;
+}
+
+.suggestions.show{
+  display:block;
+}
+
+.suggestion{
+  height:48px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:0 18px;
+  cursor:pointer;
+  color:black;
+  transition:background .15s;
+}
+
+.suggestion:hover,
+.suggestion.active{
+  background:rgb(248, 218, 84);
+}
+
+.icon{
+  font-size:18px;
+  opacity:.8;
 }

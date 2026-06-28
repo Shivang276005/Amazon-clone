@@ -4,7 +4,7 @@ import { products, loadProducts } from "../data/products.js";
 const searchBar = document.querySelector('.search-bar');
 const addedMessageTimeouts = {};
 
-function searchProducts(){
+export function searchProducts(){
   let searchValue = searchBar.value.trim().toLowerCase();
   const url = new URL(window.location.href);
   if (searchValue) {
