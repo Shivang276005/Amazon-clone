@@ -1,5 +1,23 @@
 import { cart } from "../../data/cart-class.js";
 
+export function renderCheckoutHeaderSkeleton() {
+  document.querySelector('.js-checkout-header').innerHTML = `
+    <div class="header-content">
+      <div class="checkout-header-left-section">
+        <div class="skeleton skeleton-logo"></div>
+      </div>
+
+      <div class="checkout-header-middle-section">
+        <div class="skeleton skeleton-title"></div>
+      </div>
+
+      <div class="checkout-header-right-section">
+        <div class="skeleton skeleton-lock"></div>
+      </div>
+    </div>
+  `;
+}
+
 export function renderCheckoutHeader(){
   const cartQuantity = cart.calculateCartQuantity();
   let cartQtyMsg;

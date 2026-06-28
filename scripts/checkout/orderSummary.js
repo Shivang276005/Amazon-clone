@@ -6,6 +6,31 @@ import {calculateDeliveryDate, deliveryOptions, getDeliveryOption} from '../../d
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
 
+export function renderOrderSummarySkeleton(count = 3) {
+  let html = '';
+  for (let i = 0; i < count; i++) {
+    html += `
+      <div class="cart-item-container">
+        <div class="skeleton skeleton-delivery-date"></div>
+        <div class="cart-item-details-grid">
+          <div class="skeleton skeleton-product-image"></div>
+          <div>
+            <div class="skeleton skeleton-product-name"></div>
+            <div class="skeleton skeleton-product-price"></div>
+            <div class="skeleton skeleton-product-quantity"></div>
+          </div>
+          <div>
+            <div class="skeleton skeleton-option"></div>
+            <div class="skeleton skeleton-option"></div>
+            <div class="skeleton skeleton-option"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  document.querySelector('.js-order-summary').innerHTML = html;
+}
+
 
 export function renderOrderSummary(){
 

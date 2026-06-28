@@ -4,6 +4,20 @@ import { getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { addOrder } from "../../data/orders.js";
 
+export function renderPaymentSummarySkeleton() {
+  document.querySelector('.js-payment-summary').innerHTML = `
+    <div class="payment-summary">
+      <div class="skeleton skeleton-heading"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-total"></div>
+      <div class="skeleton skeleton-button"></div>
+    </div>
+  `;
+}
+
 export function renderPaymentSummary(){
   let productPriceCents = 0;
   let shippingPriceCents = 0;
