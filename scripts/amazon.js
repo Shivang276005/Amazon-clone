@@ -1,14 +1,24 @@
 import { cart } from "../data/cart-class.js";
 import { products, loadProducts } from "../data/products.js";
 
+const searchBar = document.querySelector('.search-bar');
+const addedMessageTimeouts = {};
 
 function searchProducts(){
-  let searchValue = document.querySelector('.search-bar').value.trim().toLowerCase();
+  let searchValue = searchBar.value.trim().toLowerCase();
+  const url = new URL(window.location.href);
+  if (searchValue) {
+    url.searchParams.set("search", searchValue);
+  } else {
+    url.searchParams.delete("search");
+  }
+  history.replaceState({}, "", url);
+
   renderProductGrid(searchValue);
 }
 
 document.querySelector('.search-button').addEventListener('click',()=> searchProducts());
-document.querySelector('.search-bar').addEventListener('keydown', (event)=>{
+searchBar.addEventListener('keydown', (event)=>{
   if(event.key === 'Enter') searchProducts();
 });
 
@@ -17,7 +27,8 @@ async function initializePage() {
   await loadProducts();
 
   const url = new URL(window.location.href);
-  const searchInput = url.searchParams.get('search');
+  const searchInput = url.searchParams.get('search') || '';
+  searchBar.value = searchInput;
   renderProductGrid(searchInput);
 }
 
@@ -38,15 +49,7 @@ function renderProductGrid(searchValue){
       }    
     })
   }
-  /*Earlier approach i was thinking:
-  const filterProd = products.filter(product => product.name.trim().toLowerCase().includes(searchValue))
-
-  const filter2 = products.filter((product)=>{
-    console.log(product.keywords.includes(searchValue))
-  })
-  console.log(filter2)
-  */
-
+  
   let productsHTML = '';
   productContainer.forEach((product)=>{
     productsHTML += `
@@ -124,10 +127,14 @@ function renderProductGrid(searchValue){
       
       updateCartQuantity();
       
-      clearInterval(intervalId);
-      document.querySelector(`.js-added-${productId}`).classList.add('display-added');
-      intervalId = setTimeout(() => {
-        document.querySelector(`.js-added-${productId}`).classList.remove('display-added');
+      const addedMessage = document.querySelector(`.js-added-${productId}`);
+
+      clearTimeout(addedMessageTimeouts[productId]);
+
+      addedMessage.classList.add("display-added");
+
+      addedMessageTimeouts[productId] = setTimeout(() => {
+        addedMessage.classList.remove("display-added");
       }, 2000);
     });
   });
