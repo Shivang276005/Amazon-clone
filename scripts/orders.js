@@ -5,11 +5,57 @@ import { loadProducts, getProduct } from "../data/products.js";
 import { cart } from "../data/cart-class.js";
 import { changeSearchInRef } from "./searchBar.js";
 
+function renderNoOrders() {
+  document.querySelector('.js-orders-grid').innerHTML = `
+    <div class="no-orders">
+      <img
+        class="no-orders-image"
+        src="images/icons/empty-orders.png"
+        alt="No Orders">
+      <a href="index.html">
+        <button class="button-primary place-order-btn">
+          Start Shopping
+        </button>
+      </a>
+    </div>
+  `;
+}
+function renderOrdersSkeleton(count = 2) {
+  let html = '';
+  for (let i = 0; i < count; i++) {
+    html += `
+      <div class="order-header skeleton-card">
+        <div class="skeleton skeleton-line w-120"></div>
+        <div class="skeleton skeleton-line w-80"></div>
+        <div class="skeleton skeleton-line w-200"></div>
+      </div>
+      <div class="order-details-grid">
+        <div class="skeleton skeleton-image"></div>
+        <div>
+          <div class="skeleton skeleton-line w-250"></div>
+          <div class="skeleton skeleton-line w-180"></div>
+          <div class="skeleton skeleton-line w-100"></div>
+          <div class="skeleton skeleton-button"></div>
+        </div>
+      </div>
+    `;
+  }
+  document.querySelector('.js-orders-grid').innerHTML = html;
+}
+
 
 let totalOrders = 0;
 
 async function renderOrders(){
+
+  renderOrdersSkeleton();
+
   await loadProducts();
+
+  if (orders.length === 0) {
+    renderNoOrders();
+    return;
+  }
 
   let orderContainerHTML = '';
   

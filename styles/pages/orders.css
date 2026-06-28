@@ -191,6 +191,10 @@
   .track-package-button {
     width: 140px;
   }
+  .no-orders-image{
+    width:300px;
+    margin-bottom:20px;
+}
 }
 
 @media (max-width: 450px) {
@@ -229,6 +233,11 @@
     width: 100%;
     padding: 12px;
   }
+
+  .no-orders-image{
+    width: 100px;
+    margin-bottom: 15px;
+}
 }
 
 .search-container{
@@ -270,4 +279,77 @@
 .icon{
   font-size:18px;
   opacity:.8;
+}
+
+.no-orders{
+  max-width:450px;
+  margin:80px auto;
+  text-align:center;
+}
+
+.no-orders-image{
+  width:400px;
+  margin-bottom:25px;
+}
+
+.no-orders h2{
+  margin-bottom:12px;
+}
+
+.no-orders p{
+  color:#555;
+  margin-bottom:25px;
+}
+
+.place-order-btn{
+  padding:12px 30px;
+}
+.skeleton{
+  position:relative;
+  overflow:hidden;
+  background:#e5e7eb;
+  border-radius:6px;
+}
+
+.skeleton::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.7),
+    transparent
+  );
+  transform:translateX(-100%);
+  animation:shimmer 1.2s infinite;
+}
+
+@keyframes shimmer{
+  100%{
+    transform:translateX(100%);
+  }
+}
+
+.skeleton-image{
+  width:110px;
+  height:110px;
+}
+
+.skeleton-line{
+  height:18px;
+  margin-bottom:14px;
+}
+
+.w-250{width:250px;}
+.w-200{width:200px;}
+.w-180{width:180px;}
+.w-120{width:120px;}
+.w-100{width:100px;}
+.w-80{width:80px;}
+
+.skeleton-button{
+  width:150px;
+  height:38px;
+  border-radius:20px;
 }
