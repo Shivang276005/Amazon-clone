@@ -1,6 +1,9 @@
 import { cart } from "../data/cart-class.js";
 import { products, loadProducts } from "../data/products.js";
 
+const prodGrid = document.querySelector('.js-products-grid');
+
+
 function productSkeleton() {
   return `
     <div class="product-container skeleton">
@@ -25,7 +28,8 @@ function renderSkeletons(count = 12) {
     html += productSkeleton();
   }
 
-  document.querySelector(".products-grid").innerHTML = html;
+  if (!prodGrid) return;
+  prodGrid.innerHTML = html;
 }
 
 
@@ -136,7 +140,6 @@ function renderProductGrid(searchValue){
     </div>
     `
   });
-  const prodGrid = document.querySelector('.js-products-grid');
   if (!prodGrid) return;
   prodGrid.innerHTML = productsHTML;
   

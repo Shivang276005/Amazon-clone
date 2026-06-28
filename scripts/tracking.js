@@ -4,10 +4,47 @@ import { deliveryFormat } from "./utils/formatDate.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { changeSearchInRef } from "./searchBar.js";
 
+function renderTrackingSkeleton() {
+  document.querySelector('.order-tracking').innerHTML = `
+    <div class="skeleton skeleton-back-link"></div>
+    <div class="skeleton skeleton-delivery-date"></div>
+    <div class="skeleton skeleton-product-name"></div>
+    <div class="skeleton skeleton-quantity"></div>
+    <div class="skeleton skeleton-product-image"></div>
+    <div class="progress-labels-container">
+      <div class="skeleton skeleton-label"></div>
+      <div class="skeleton skeleton-label"></div>
+      <div class="skeleton skeleton-label"></div>
+    </div>
+    <div class="skeleton skeleton-progress"></div>
+  `;
+}
+
+function renderTrackingNotFound() {
+  document.querySelector('.order-tracking').innerHTML = `
+    <div class="tracking-empty">
+      <img
+        class="tracking-empty-image"
+        src="images/icons/tracking-not-found.png">
+      <h2>Tracking unavailable</h2>
+      <p>
+        We couldn't find tracking information for this product.
+      </p>
+      <a href="orders.html">
+        <button class="button-primary">
+          Back to Orders
+        </button>
+      </a>
+    </div>
+  `;
+}
+
 
 const url = new URL(window.location.href);
 const orderId = url.searchParams.get('oid');
 const prodId = url.searchParams.get('pid');
+
+renderTrackingSkeleton();
 
 await loadProducts();
 
@@ -21,6 +58,10 @@ function renderTracking(){
       orderToTrack = order;
     }
   });
+  if (!orderToTrack) {
+    renderTrackingNotFound();
+    return;
+  }
   orderToTrack.products.forEach((prod)=>{
     if(prod.productId===prodId){
       delivery = prod;
@@ -29,7 +70,7 @@ function renderTracking(){
 
 
   const trackingHTML = `
-    <a class="back-to-orders-link link-primary" href="orders.html">
+    <a class="back-to-orders-link button-primary" href="orders.html">
       Back to orders
     </a>
 
