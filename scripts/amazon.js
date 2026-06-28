@@ -1,6 +1,34 @@
 import { cart } from "../data/cart-class.js";
 import { products, loadProducts } from "../data/products.js";
 
+function productSkeleton() {
+  return `
+    <div class="product-container skeleton">
+
+      <div class="image-skeleton"></div>
+
+      <div class="text-skeleton title"></div>
+
+      <div class="text-skeleton rating"></div>
+
+      <div class="text-skeleton price"></div>
+
+      <div class="button-skeleton"></div>
+
+    </div>
+  `;
+}
+function renderSkeletons(count = 12) {
+  let html = "";
+
+  for (let i = 0; i < count; i++) {
+    html += productSkeleton();
+  }
+
+  document.querySelector(".products-grid").innerHTML = html;
+}
+
+
 const searchBar = document.querySelector('.search-bar');
 const addedMessageTimeouts = {};
 
@@ -24,6 +52,9 @@ searchBar.addEventListener('keydown', (event)=>{
 
 
 async function initializePage() {
+
+  renderSkeletons();
+
   await loadProducts();
 
   const url = new URL(window.location.href);
