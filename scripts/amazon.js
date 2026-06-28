@@ -105,7 +105,9 @@ function renderProductGrid(searchValue){
     </div>
     `
   });
-  document.querySelector('.js-products-grid').innerHTML = productsHTML;
+  const prodGrid = document.querySelector('.js-products-grid');
+  if (!prodGrid) return;
+  prodGrid.innerHTML = productsHTML;
   
   function updateCartQuantity(){
     const cartQuantity = cart.calculateCartQuantity();

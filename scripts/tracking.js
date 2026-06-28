@@ -2,6 +2,7 @@ import { orders } from "../data/orders.js";
 import { getProduct, loadProducts } from "../data/products.js";
 import { deliveryFormat } from "./utils/formatDate.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
+import { changeSearchInRef } from "./searchBar.js";
 
 
 const url = new URL(window.location.href);
@@ -88,20 +89,18 @@ function renderTracking(){
 }
 renderTracking();
 
+const searchBar = document.querySelector('.search-bar');
+const ref = document.getElementById('search-value');
+
 document.querySelector('.search-button').addEventListener('click',()=>{
-  const searchValue = document.querySelector('.search-bar').value;
-  console.log(searchValue);
-  const ref = document.getElementById('search-value');
-  ref.setAttribute('href',`index.html?search=${searchValue}`);
-  
-});
+  const value = searchBar.value;
+  changeSearchInRef(value);
+})
+
 
 document.querySelector('.search-bar').addEventListener('keydown', (event)=>{
   if(event.key === 'Enter'){
-    const searchValue = document.querySelector('.search-bar').value;
-    console.log(searchValue)
-    const ref = document.getElementById('search-value');
-    ref.setAttribute('href',`index.html?search=${searchValue}`);
-    window.location.href = ref;
+    const value = searchBar.value;
+    changeSearchInRef(value);
   }
 })

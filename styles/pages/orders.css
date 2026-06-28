@@ -83,6 +83,12 @@
     display: grid;
     grid-template-columns: auto 1fr;
   }
+  .icon{
+    display: none;
+  }
+  .searchText{
+    font-size: 14px;
+  }
 }
 
 .order-details-grid {
@@ -231,12 +237,13 @@
 
 .suggestions{
   position:absolute;
-  top: 52px;
+  top: 48px;
   left:0;
-  width:70%;
+  width:100%;
+  max-height: 500px;
   background:rgb(220, 190, 40);
   border-radius:18px;
-  overflow:hidden;
+  overflow-y: scroll;
   display:none;
 }
 

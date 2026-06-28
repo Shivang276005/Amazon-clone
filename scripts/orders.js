@@ -3,6 +3,7 @@ import { dateFormat } from "./utils/formatDate.js";
 import { formatCurrency } from './utils/money.js';
 import { loadProducts, getProduct } from "../data/products.js";
 import { cart } from "../data/cart-class.js";
+import { changeSearchInRef } from "./searchBar.js";
 
 
 let totalOrders = 0;
@@ -110,20 +111,18 @@ document.querySelector('.js-orders-grid').addEventListener('click', (event) => {
 
 });
 
+const searchBar = document.querySelector('.search-bar');
+const ref = document.getElementById('search-value');
+
 document.querySelector('.search-button').addEventListener('click',()=>{
-  const searchValue = document.querySelector('.search-bar').value;
-  console.log(searchValue);
-  const ref = document.getElementById('search-value');
-  ref.setAttribute('href',`index.html?search=${searchValue}`);
+  const value = searchBar.value;
+  changeSearchInRef(value);
 })
 
 
 document.querySelector('.search-bar').addEventListener('keydown', (event)=>{
   if(event.key === 'Enter'){
-    const searchValue = document.querySelector('.search-bar').value;
-    console.log(searchValue)
-    const ref = document.getElementById('search-value');
-    ref.setAttribute('href',`index.html?search=${searchValue}`);
-    window.location.href = ref;
+    const value = searchBar.value;
+    changeSearchInRef(value);
   }
 })

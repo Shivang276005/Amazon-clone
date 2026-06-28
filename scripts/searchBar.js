@@ -1,20 +1,11 @@
 import { searchProducts } from "./amazon.js";
 
-/*
-import { loadProducts, Product, products } from "../data/products.js";
-
-let keyArray = [];
-async function loadKeywords() {
-  await loadProducts();
-  products.forEach((prod)=>{
-    prod.keywords.forEach((p)=>{
-      if(!keyArray.includes(p)) keyArray.push(p)
-    })
-  })
-  console.log(keyArray)
+const ref = document.getElementById('search-value');
+export function changeSearchInRef(value){
+  ref.setAttribute('href',`index.html?search=${value}`);
+  window.location.href = ref;
 }
-loadKeywords();
-*/
+
 const suggestionsData = [
   'socks', 'sports', 'apparel', 'basketballs', 'tshirts', 'mens', 'toaster', 'kitchen', 'appliances', 'plates', 'dining', 'cookware', 'hoodies', 'sweaters', 'bathroom', 'washroom', 'restroom', 'towels', 'bath towels', 'cleaning', 'shoes', 'running shoes', 'footwear', 'robe', 'swimsuit', 'swimming', 'bathing', 'accessories', 'shades', 'sandals', 'womens', 'beach', 'summer', 'bedroom', 'curtains', 'home', 'shorts', 'water boiler', 'kleenex', 'tissues', 'tissues box', 'napkins', 'hats', 'straw hats', 'jewelry', 'hooded', 'bathmat', 'flats', 'shirts', 'garbage', 'bins', 'cans', 'bed sheets', 'sheets', 'covers', 'winter hats', 'beanies', 'tuques', 'pants', 'sunglasses', 'glasses', 'cooking set', 'mirrors', 'sweatpants', 'jogging', 'boxes', 'food containers', 'coffeemakers', 'food blenders', 'mixing bowls', 'baking', 'kitchen towels'
 ];
@@ -40,6 +31,7 @@ function renderSuggestions(list){
     `;
     div.addEventListener("click",()=>{
       searchBar.value = item;
+      changeSearchInRef(searchBar.value);
       searchProducts();
       suggestions.classList.remove("show");
     });
@@ -82,6 +74,7 @@ searchBar.addEventListener("keydown",(event)=>{
     if(selectedIndex>=0){
       event.preventDefault();
       searchBar.value = filteredResults[selectedIndex];
+      changeSearchInRef(searchBar.value);
       searchProducts();
       suggestions.classList.remove("show");
     }
